@@ -1,0 +1,7 @@
+node_modules/
+npm-debug.log
+.nuxt/
+dist/
+static/sw.js
+static/workbox-sw*.jss
+.env
