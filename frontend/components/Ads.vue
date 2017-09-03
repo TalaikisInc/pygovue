@@ -1,5 +1,5 @@
 <template>
-  <div class="post-content">
+  <div>
     <adsense
       :ad-client="adClient"
       :ad-slot="adSlot"
@@ -13,12 +13,11 @@
 import VueAdsense from './VueAdsense.vue'
 
 export default {
-  name: 'adsComp',
+  name: 'adsComponent',
   data () {
     return {
-      imgBaseUrl: process.env.imgBaseUrl,
-      adClient: process.env.adClient,
-      adSlot: process.env.adSlot
+      adClient: process.env.ADSENSE_AD_CLIENT,
+      adSlot: process.env.ADSENSE_AD_SLOT
     }
   },
   components: {

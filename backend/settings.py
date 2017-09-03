@@ -1,4 +1,4 @@
-from os.path import dirname, abspath
+from os.path import dirname, abspath, join
 from os import environ
 
 from psycopg2 import extensions
@@ -35,7 +35,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-s
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [

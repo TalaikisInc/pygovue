@@ -1,19 +1,13 @@
 <template>
 <div>
     <header-component></header-component>
-        <div class="error-page text-center">
-            <div class="tr-section tr-section-padding">
-                <div class="error-page-content">
-                    <div class="logo text-center">
-                        <a class="navbar-brand" :href="baseUrl"><img class="img-responsive" v-bind:src="baseUrl+logoUrl" v-bind:alt="logoAlt"></a>
-                    </div>
-                    <div class="not-found">
-                        <h1>404</h1>
-                        <p>Page not found.</p>
-                        <a :href="baseUrl">Back to Home</a>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <a class="navbar-brand" :href="baseUrl"><img class="img-responsive" :src="~/assets/logo/qprob.png" :alt="logoAlt"></a>
+        </div>
+        <div>
+            <h1>404</h1>
+            <p>Page not found.</p>
+            <a :href="baseUrl">Back to Home</a>
         </div>
     <footer-component></footer-component>
 </div>
@@ -27,9 +21,8 @@ export default {
   name: 'errorPage',
   data () {
     return {
-      baseUrl: process.env.baseUrl,
-      logoUrl: process.env.logoUrl,
-      logoAlt: process.env.logoAlt
+      baseUrl: process.env.BASE_URL,
+      logoAlt: process.env.SITE_NAME
     }
   },
   components: {
