@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/xenu256/qprob_goapi/api_server/v2handlers"
+	"./handlers"
 
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
@@ -23,7 +23,6 @@ func main() {
 	ApiHost := os.Getenv("API_HOST")
 
 	app := mux.NewRouter()
-	app.Host(ApiHost)
 
 	app.HandleFunc("/posts/{page}/", v2handlers.PostsHandler).Methods("GET")
 	app.HandleFunc("/cat/{catSlug}/{page}/", v2handlers.PostsByCatHandler).Methods("GET")

@@ -12,3 +12,5 @@ pip install -r requirements.txt
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
+cd /home/$PROJECT/api_server
+go get github.com/lib/pq
