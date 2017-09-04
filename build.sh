@@ -14,3 +14,6 @@ python manage.py migrate
 python manage.py createsuperuser
 cd /home/$PROJECT/api_server
 go get github.com/lib/pq
+
+cd /home/$PROJECT/frontend
+npm install

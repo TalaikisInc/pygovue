@@ -16,12 +16,10 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'footerComponent',
   data () {
-    return 
+    return {
       baseUrl: process.env.BASE_URL,
       logoAlt: process.env.SITE_NAME,
       twHandle: process.env.TWITTE_HANDLE,

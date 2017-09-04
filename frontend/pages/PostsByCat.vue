@@ -7,12 +7,14 @@
           <ad-component :type="0"></ad-component>
           <h1>{{ title }}<span v-if="page > 0">, page {{ page }}</span></h1>
           <div class="row" v-for="chunk in chunkPosts">
-            <div class="col-md-6 medium-post" v-for="post in chunk">
+            <div class="col-md-6" v-for="post in chunk">
               <div v-if="post.image">
-                <a :href="baseUrl + post.slug+'/'"><img class="img-responsive" :src="imgBaseUrl + post.image" :alt="post.title"></a>
+                <a :href="baseUrl + post.slug + '/'">
+                <img class="img-responsive" :src="imgBaseUrl + post.image" :alt="post.title">
+                </a>
               </div>
               <div>
-                <a :href="baseUrl+'/category/' + post.category_id.Slug+'/'">By <a :href="baseUrl+'/source/'+post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
+                By <a :href="baseUrl+'/source/'+post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
                  | {{ post.date | formatDate }}
               </div>
               <h2><a :href="baseUrl + post.slug + '/'">{{ post.title }}</a></h2>
@@ -33,7 +35,6 @@ import chunk from '../plugins/chunk'
 import Header from '../components/Header.vue'
 import Footer from '../components/Footer.vue'
 import Paginator from '../components/Paginator.vue'
-import Popular from '../components/PopularSidebar.vue'
 import Ads from '../components/Ads.vue'
 
 import axios from 'axios'
@@ -50,7 +51,7 @@ export default {
       type: 1
     }
   },
-  asyncData ({ req, params }) {
+  asyncData ({ req, params, error }) {
     return axios.get('/cat/' + params.catSlug + '/' + (Number(params.page) || '0') + '/')
       .then((response) => {
         return { posts: response.data, category: params.catSlug, page: Number(params.page) || 0 }
@@ -62,7 +63,6 @@ export default {
   components: {
     'header-component': Header,
     'footer-component': Footer,
-    'popular-posts': Popular,
     'paginator-component': Paginator,
     'ad-component': Ads
   },

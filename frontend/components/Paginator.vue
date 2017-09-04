@@ -6,7 +6,7 @@
   <ul class="pagination" v-if="source === 1">
     <li v-for="p in pages" :class="{ active: active === p }"><a :href="'/category/' + value + '/page/' + p + '/'">{{ p }}</a></li>
   </ul>
-/div>
+</div>
 </template>
 
 <script>
