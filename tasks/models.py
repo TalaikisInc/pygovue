@@ -65,7 +65,7 @@ class AutoSlugifyOnSaveModel(models.Model):
 
 class Category(AutoSlugifyOnSaveModel):
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=120, verbose_name=T("Categoery"), db_index=True)
+    title = models.CharField(max_length=120, verbose_name=T("Categoery"), db_index=True, unique=True)
     slug = models.CharField(max_length=120, blank=True, null=True)
 
     class Meta:
@@ -80,7 +80,7 @@ class Category(AutoSlugifyOnSaveModel):
 
 class Post(AutoSlugifyOnSaveModel):
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=250, verbose_name=T("Title"), db_index=True)
+    title = models.CharField(max_length=250, verbose_name=T("Title"), db_index=True, unique=True)
     slug = models.CharField(max_length=250, blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name=T("Categoery"))
     content = models.TextField(verbose_name=T("Content"))
