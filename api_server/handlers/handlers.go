@@ -37,16 +37,16 @@ func PostsHandler(w http.ResponseWriter, r *http.Request) {
 			posts.url, 
 			posts.content, 
 			posts.date, 
-			COALESCE(posts.image, ""), 
+			COALESCE(posts.image, ''), 
 			posts.category_id, 
 			cats.slug, 
 			(SELECT 
 				COUNT(*) 
 				FROM tasks_post) 
-			FROM tasks_post as posts
-			INNER JOIN tasks_category AS cats ON posts.category_id = cats.title 
+			FROM tasks_post as posts 
+			INNER JOIN tasks_category AS cats ON posts.category_id = cats.id 
 			ORDER BY posts.date DESC 
-			LIMIT %[1]d,%[2]d;`, postsPerPage*p, postsPerPage)
+			LIMIT %[1]d OFFSET %[2]d;`, postsPerPage, postsPerPage*p)
 
 		rows, err := db.Query(query)
 		if err != nil {
@@ -107,19 +107,19 @@ func PostsByCatHandler(w http.ResponseWriter, r *http.Request) {
 			posts.url, 
 			posts.content, 
 			posts.date AS dt, 
-			COALESCE(posts.image, ""), 
+			COALESCE(posts.image, ''), 
 			posts.category_id, 
 			cats.slug, 
 			(SELECT 
 				COUNT(*) 
 				FROM tasks_post AS posts 
-				INNER JOIN tasks_category AS cats ON posts.category_id = cats.title 
+				INNER JOIN tasks_category AS cats ON posts.category_id = cats.id 
 				WHERE cats.slug='%[1]s') 
 			FROM tasks_post AS posts 
-			INNER JOIN tasks_category AS cats ON posts.category_id = cats.title 
+			INNER JOIN tasks_category AS cats ON posts.category_id = cats.id 
 			WHERE cats.slug='%[1]s' 
 			ORDER BY dt DESC 
-			LIMIT %[2]d,%[3]d;`, cat, postsPerPage*p, postsPerPage)
+			LIMIT %[2]d OFFSET %[3]d;`, cat, postsPerPage, postsPerPage*p)
 		rows, err := db.Query(query)
 		if err != nil {
 			return
@@ -170,9 +170,9 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 			cats.slug, 
 			COUNT(posts.title) AS cnt 
 			FROM tasks_category AS cats 
-			INNER JOIN tasks_post AS posts ON posts.category_id = cats.title 
+			INNER JOIN tasks_post AS posts ON posts.category_id = cats.id 
 			GROUP BY cats.title 
-			LIMIT %[1]d,%[2]d;`, catsPerPage*p, catsPerPage)
+			LIMIT %[1]d OFFSET %[2]d;`, catsPerPage, catsPerPage*p)
 
 		rows, err := db.Query(query)
 		if err != nil {
@@ -225,11 +225,11 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 			posts.url, 
 			posts.content, 
 			posts.date, 
-			COALESCE(posts.image, ""), 
+			COALESCE(posts.image, ''), 
 			posts.category_id, 
 			cats.slug 
 			FROM tasks_post as posts 
-			INNER JOIN tasks_category as cats ON posts.category_id = cats.title 
+			INNER JOIN tasks_category as cats ON posts.category_id = cats.id 
 			WHERE posts.slug='%s';`, postSlug)
 		row := db.QueryRow(query)
 
