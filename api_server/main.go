@@ -27,6 +27,7 @@ func main() {
 	app.HandleFunc("/posts/{page}/", v2handlers.PostsHandler).Methods("GET")
 	app.HandleFunc("/cat/{catSlug}/{page}/", v2handlers.PostsByCatHandler).Methods("GET")
 	app.HandleFunc("/cats/{page}/", v2handlers.CategoriesHandler).Methods("GET")
+	app.HandleFunc("/post/{postSllug}/", v2handlers.PostHandler).Methods("GET")
 
 	server := &http.Server{
 		Handler:      app,
