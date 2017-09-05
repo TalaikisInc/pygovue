@@ -8,11 +8,12 @@ import (
 )
 
 func Connect() *sql.DB {
-	db, err := sql.Open("postgres",
-		os.Getenv("DATABASE_USER")+":"+
-			os.Getenv("DATABASE_PASSWORD")+"@tcp("+
-			os.Getenv("DB_HOST")+":3306)/"+
-			os.Getenv("DATABASE_NAME")+"?tls=false")
+	db, err := sql.Open("postgres", "user="+
+		os.Getenv("DATABASE_USER")+" password="+
+		os.Getenv("DATABASE_PASSWORD")+" host="+
+		os.Getenv("DATABASE_HOST")+" port="+
+		os.Getenv("DATABASE_PORT")+
+		" dbname="+os.Getenv("DATABASE_NAME")+" sslmode=disable")
 	if err != nil {
 		panic(err)
 	}
