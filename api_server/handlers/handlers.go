@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
+	"../database"
+	"../models"
 	"github.com/die-net/lrucache"
-	"github.com/xenu256/qprob_goapi/api_server/database"
-	"github.com/xenu256/qprob_goapi/api_server/models"
 )
 
 var cache = lrucache.New(104857600*3, 60*60*24) //300 Mb, 24 hours
@@ -20,7 +20,7 @@ var catsPerPage = 40
 func PostsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[3])
+	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	p, err := strconv.Atoi(page)
 	if err != nil {
 		return
@@ -38,7 +38,7 @@ func PostsHandler(w http.ResponseWriter, r *http.Request) {
 			posts.content, 
 			posts.date, 
 			COALESCE(posts.image, ''), 
-			posts.category_id, 
+			cats.title, 
 			cats.slug, 
 			(SELECT 
 				COUNT(*) 
@@ -86,11 +86,11 @@ func PostsHandler(w http.ResponseWriter, r *http.Request) {
 func PostsByCatHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	cat := url.QueryEscape(strings.Split(r.RequestURI, "/")[3])
+	cat := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	if len(cat) == 0 {
 		return
 	}
-	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[4])
+	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[3])
 	p, err := strconv.Atoi(page)
 	if err != nil {
 		return
@@ -108,7 +108,7 @@ func PostsByCatHandler(w http.ResponseWriter, r *http.Request) {
 			posts.content, 
 			posts.date AS dt, 
 			COALESCE(posts.image, ''), 
-			posts.category_id, 
+			cats.title, 
 			cats.slug, 
 			(SELECT 
 				COUNT(*) 
@@ -154,7 +154,7 @@ func PostsByCatHandler(w http.ResponseWriter, r *http.Request) {
 func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[3])
+	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	p, err := strconv.Atoi(page)
 	if err != nil {
 		return
@@ -171,7 +171,8 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 			COUNT(posts.title) AS cnt 
 			FROM tasks_category AS cats 
 			INNER JOIN tasks_post AS posts ON posts.category_id = cats.id 
-			GROUP BY cats.title 
+			GROUP BY (cats.title, cats.slug) 
+			ORDER BY cats.title 
 			LIMIT %[1]d OFFSET %[2]d;`, catsPerPage, catsPerPage*p)
 
 		rows, err := db.Query(query)
@@ -209,7 +210,7 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 func PostHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	postSlug := url.QueryEscape(strings.Split(r.RequestURI, "/")[3])
+	postSlug := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	if len(postSlug) == 0 {
 		return
 	}
@@ -226,7 +227,7 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 			posts.content, 
 			posts.date, 
 			COALESCE(posts.image, ''), 
-			posts.category_id, 
+			cats.title, 
 			cats.slug 
 			FROM tasks_post as posts 
 			INNER JOIN tasks_category as cats ON posts.category_id = cats.id 
