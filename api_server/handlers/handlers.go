@@ -3,6 +3,7 @@ package v2handlers
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -19,6 +20,7 @@ var catsPerPage = 40
 
 func PostsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	p, err := strconv.Atoi(page)
@@ -50,7 +52,6 @@ func PostsHandler(w http.ResponseWriter, r *http.Request) {
 
 		rows, err := db.Query(query)
 		if err != nil {
-			fmt.Println(err)
 			return
 		}
 		defer rows.Close()
@@ -61,19 +62,19 @@ func PostsHandler(w http.ResponseWriter, r *http.Request) {
 			err := rows.Scan(&post.Title, &post.Slug, &post.URL, &post.Content, &post.Date,
 				&post.Image, &post.CategoryID.Title, &post.CategoryID.Slug, &post.TotalPosts)
 			if err != nil {
-				fmt.Println(err)
+				log.Fatal(err)
 				return
 			}
 			posts = append(posts, post)
 		}
 		if err = rows.Err(); err != nil {
-			fmt.Println(err)
+			log.Fatal(err)
 			return
 		}
 
 		j, err := json.Marshal(posts)
 		if err != nil {
-			fmt.Println(err)
+			log.Fatal(err)
 			return
 		}
 
@@ -85,6 +86,7 @@ func PostsHandler(w http.ResponseWriter, r *http.Request) {
 
 func PostsByCatHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	cat := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	if len(cat) == 0 {
@@ -153,6 +155,7 @@ func PostsByCatHandler(w http.ResponseWriter, r *http.Request) {
 
 func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	page := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	p, err := strconv.Atoi(page)
@@ -177,6 +180,7 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 
 		rows, err := db.Query(query)
 		if err != nil {
+			log.Fatal(err)
 			return
 		}
 		defer rows.Close()
@@ -209,6 +213,7 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	postSlug := url.QueryEscape(strings.Split(r.RequestURI, "/")[2])
 	if len(postSlug) == 0 {

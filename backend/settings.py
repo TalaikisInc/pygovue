@@ -23,7 +23,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tasks'
+    'tasks',
+    'tasks.summarizer'
 ]
 
 MIDDLEWARE = [
@@ -56,17 +57,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-if DEBUG:
-    DATABASE_USER = environ.get("DEV_DATABASE_USER")
-    DATABASE_PASSWORD = environ.get("DEV_DATABASE_PASSWORD")
-    DATABASE_NAME = environ.get("DEV_DATABASE_NAME")
-    DATABASE_HOST = environ.get("DEV_DB_HOST")
-else:
-    DATABASE_USER = environ.get("DATABASE_USER")
-    DATABASE_PASSWORD = environ.get("DATABASE_PASSWORD")
-    DATABASE_NAME = environ.get("DATABASE_NAME")
-    DATABASE_HOST = environ.get("DB_HOST")
-
+DATABASE_USER = environ.get("DATABASE_USER")
+DATABASE_PASSWORD = environ.get("DATABASE_PASSWORD")
+DATABASE_NAME = environ.get("DATABASE_NAME")
+DATABASE_HOST = environ.get("DATABASE_HOST")
 DATABASE_PORT = int(environ.get("DATABASE_PORT"))
 
 DATABASES = {
@@ -112,3 +106,4 @@ USE_L10N = False
 USE_TZ = False
 
 STATIC_URL = '/static/'
+3

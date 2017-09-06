@@ -23,6 +23,7 @@
     "axios": "^0.16.2",
     "dotenv": "^4.0.0",
     "lru-cache": "^4.1.1",
+    "element-ui": "^1.4.4",
     "moment": "^2.18.1",
     "nuxt": "^1.0.0-rc8",
     "vue-html-loader": "^1.2.4",
