@@ -6,12 +6,14 @@ type Category struct {
 	Title   string
 	Slug    string
 	PostCnt int
+	TotalCats int
 }
 
 type CategoryJSON struct {
 	Title   string `json:"title, omitempty"`
 	Slug    string `json:"slug, omitempty"`
 	PostCnt int    `json:"post_count"`
+	TotalCats int     `json:"total_cats"`
 }
 
 func (c *Category) MarshalJSON() ([]byte, error) {
@@ -19,6 +21,7 @@ func (c *Category) MarshalJSON() ([]byte, error) {
 		c.Title,
 		c.Slug,
 		c.PostCnt,
+		c.TotalCats,
 	})
 }
 
@@ -32,6 +35,7 @@ func (c *Category) UnmarshalJSON(b []byte) error {
 	c.Title = temp.Title
 	c.Slug = temp.Slug
 	c.PostCnt = temp.PostCnt
+	c.TotalCats = temp.TotalCats
 
 	return nil
 }

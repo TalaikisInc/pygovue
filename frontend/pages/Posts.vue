@@ -1,42 +1,33 @@
 <template>
-<div>
-  <header-component></header-component>
-    <div class="col-sm-9">
-      <div class="row">
-        <div class="col-sm-8">
-          <ad-component :type="0"></ad-component>
-          <h1>{{ title }}<span v-if="page > 0">, page {{ page }}</span></h1>
-          <div class="row" v-for="chunk in chunkPosts">
-            <div class="col-md-6" v-for="post in chunk">
-              <div v-if="post.image">
-                <a :href="baseUrl + post.slug + '/'">
-                <img class="img-responsive" :src="imgBaseUrl + post.image" :alt="post.title">
-                </a>
-              </div>
-              <div>
-                By <a :href="baseUrl+'/source/'+post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
-                 | {{ post.date | formatDate }}
-              </div>
-              <h2><a :href="baseUrl + post.slug + '/'">{{ post.title }}</a></h2>
-              <p v-if="post.content">{{ post.content }}</p>
-            </div>
-          </div>
+  <div class="col-md-12">
+    <ad-component></ad-component>
+    <h1>{{ title }}<span v-if="page > 0">, page {{ page }}</span></h1>
+    <div class="row" v-for="chunk in chunkPosts">
+      <div class="col-md-6 card bg-light mb3" style="max-width: 20rem;" v-for="post in chunk">
+        <div class="card-header">
+          <a :href="baseUrl+'/source/'+post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
+            | {{ post.date | formatDate }}
+        </div>
+        <div v-if="post.image" class="card-img-top">
+          <a :href="baseUrl + post.slug + '/'">
+            <img class="img-responsive" :src="imgBaseUrl + post.image" :alt="post.title">
+          </a>
+        </div>
+        <div  class="card-body">
+          <h2 class="card-title"><a :href="baseUrl + post.slug + '/'">{{ post.title }}</a></h2>
+          <p class="card-text" v-if="post.content">{{ post.content }}</p>
         </div>
       </div>
     </div>
-  <paginator-component v-once :pages="calcPages" :source="type" value="" :active="page"></paginator-component>
-  <footer-component></footer-component>
-</div>
+    <paginator-component v-once :totalPages="calcPages" :paginatorType="paginatorType" value="" :currentPage="page" :itemsPerPage="itemsPerPage" :totalItems="posts[0].total_posts">
+    </paginator-component>
+  </div>
 </template>
 
 <script>
 import chunk from '../plugins/chunk'
-
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
 import Paginator from '../components/Paginator.vue'
 import Ads from '../components/Ads.vue'
-
 import axios from 'axios'
 
 export default {
@@ -47,7 +38,8 @@ export default {
       imgBaseUrl: process.env.IMG_URL,
       title: process.env.SITE_NAME,
       page: null,
-      type: 0
+      paginatorType: 0,
+      itemsPerPage: 20
     }
   },
   asyncData ({ req, params, error }) {
@@ -60,8 +52,6 @@ export default {
       })
   },
   components: {
-    'header-component': Header,
-    'footer-component': Footer,
     'paginator-component': Paginator,
     'ad-component': Ads
   },

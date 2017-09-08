@@ -2,7 +2,7 @@
 <div>
     <header-component></header-component>
         <div>
-            <a class="navbar-brand" :href="baseUrl"><img class="img-responsive" src="~/assets/logo/qprob.png" :alt="logoAlt"></a>
+            <a class="navbar-brand" :href="baseUrl"><img class="img-responsive" src="~/assets/logo/logo.png" :alt="logoAlt"></a>
         </div>
         <div>
             <h1>404</h1>

@@ -171,7 +171,10 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 		query := fmt.Sprintf(`SELECT 
 			cats.title, 
 			cats.slug, 
-			COUNT(posts.title) AS cnt 
+			COUNT(posts.title) AS cnt, 
+			(SELECT 
+				COUNT(*) 
+				FROM tasks_category) 
 			FROM tasks_category AS cats 
 			INNER JOIN tasks_post AS posts ON posts.category_id = cats.id 
 			GROUP BY (cats.title, cats.slug) 
@@ -181,6 +184,7 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 		rows, err := db.Query(query)
 		if err != nil {
 			log.Fatal(err)
+			log.Fatal(err)
 			return
 		}
 		defer rows.Close()
@@ -189,7 +193,7 @@ func CategoriesHandler(w http.ResponseWriter, r *http.Request) {
 		for rows.Next() {
 			category := models.Category{}
 
-			err := rows.Scan(&category.Title, &category.Slug, &category.PostCnt)
+			err := rows.Scan(&category.Title, &category.Slug, &category.PostCnt, &category.TotalCats)
 			if err != nil {
 				return
 			}

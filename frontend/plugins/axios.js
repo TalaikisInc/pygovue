@@ -1,3 +1,3 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = process.env.apiUrl
+axios.defaults.baseURL = process.env.API_URL

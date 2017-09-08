@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './.env' })
+require('dotenv').config({ path: '../.env' })
 
 module.exports = {
   head: {
@@ -14,18 +14,16 @@ module.exports = {
     ],
     script: [
       { src: 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' },
-      { src: 'https://code.jquery.com/jquery-3.1.1.slim.min.js' },
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js' },
-      { src: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js' },
       { src: '/js/vue-social-sharing.min.js' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Space+Mono' },
       { rel: 'stylesheet', href: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' }
     ]
   },
+  css: [
+    '@/assets/css/main.css'
+  ],
   plugins: [
     '~plugins/filters.js',
     '~plugins/axios.js'
@@ -57,6 +55,7 @@ module.exports = {
         { path: '/:postSlug/', component: resolve(__dirname, 'pages', 'Post.vue') },
         { path: '/category/:catSlug/', component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
         { path: '/category/:catSlug/page/:page/', component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
+        { path: '/categories/:page/', component: resolve(__dirname, 'pages', 'Categories.vue') },
         { path: '*', component: resolve(__dirname, 'pages', 'Error404.vue') }
       )
     }

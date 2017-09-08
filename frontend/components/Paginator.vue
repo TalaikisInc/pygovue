@@ -1,31 +1,87 @@
 <template>
 <div>
-  <ul class="pagination" v-if="source === 0">
-    <li v-for="p in pages" :class="{ active: active === p }"><a :href="'/page/' + p + '/'">{{ p }}</a></li>
+  <ul class="pagination" v-if="paginatorType === 0">
+    <li v-for="n in paginationRange" :class="activePage(n)">
+      <a :href="baseUrl + 'page/' + n + '/'" @click="pageChanged(n)">{{ n }}</a>
+    </li>
   </ul>
-  <ul class="pagination" v-if="source === 1">
-    <li v-for="p in pages" :class="{ active: active === p }"><a :href="'/category/' + value + '/page/' + p + '/'">{{ p }}</a></li>
+  <ul class="pagination" v-if="paginatorType === 1">
+    <li v-for="n in paginationRange" :class="activePage(n)">
+      <a :href="baseUrl + 'category/' + value + '/page/' + n + '/'" @click="pageChanged(n)">{{ n }}</a>
+    </li>
+  </ul>
+  <ul class="pagination" v-if="paginatorType === 2">
+    <li v-for="n in paginationRange" :class="activePage(n)">
+      <a :href="baseUrl + 'categories/' + n + '/'" @click="pageChanged(n)">{{ n }}</a>
+    </li>
   </ul>
 </div>
 </template>
 
 <script>
+import Util from '../plugins/util.js'
+
 export default {
-  name: 'paginatorComp',
+  name: 'paginatorComponent',
+  data () {
+    return {
+      baseUrl: process.env.BASE_URL
+    }
+  },
+  methods: {
+    activePage (pageNum) {
+      return this.currentPage === pageNum ? 'active' : ''
+    },
+    pageChanged (pageNum) {
+      this.$emit('page-changed', pageNum)
+    }
+  },
+  computed: {
+    lastPage () {
+      if (this.totalPages) {
+        return this.totalPages
+      } else {
+        return this.totalItems % this.itemsPerPage === 0
+          ? this.totalItems / this.itemsPerPage
+          : Math.floor(this.totalItems / this.itemsPerPage)
+      }
+    },
+    paginationRange () {
+      let start =
+        this.currentPage - this.visiblePages / 2 <= 0
+          ? 1 : this.currentPage + this.visiblePages / 2 > this.lastPage
+            ? Util.lowerBound(this.lastPage - this.visiblePages + 1, 1)
+            : Math.ceil(this.currentPage - this.visiblePages / 2)
+
+      let range = []
+
+      for (let i = 0; i < this.visiblePages && i < this.lastPage; i++) {
+        range.push(start + i)
+      }
+
+      return range
+    }
+  },
   props: {
-    pages: {
+    currentPage: {
       type: Number,
       required: true
-    },
-    source: {
-      type: Number
     },
     value: {
-      type: String
+      type: String,
+      required: false
     },
-    active: {
+    paginatorType: {
       type: Number,
       required: true
+    },
+    totalPages: Number,
+    itemsPerPage: Number,
+    totalItems: Number,
+    visiblePages: {
+      type: Number,
+      default: 15,
+      coerce: (val) => parseInt(val)
     }
   }
 }
