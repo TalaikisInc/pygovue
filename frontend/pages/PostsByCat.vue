@@ -20,7 +20,7 @@
         </div>
         <div  class="card-body">
           <h2 class="card-title"><a :href="baseUrl + post.slug + '/'">{{ post.title }}</a></h2>
-          <p class="card-text" v-if="post.content">{{ post.content }}</p>
+          <p class="card-text" v-if="post.content">{{ post.content  | truncate }}</p>
         </div>
       </div>
       <div class="col-sm-2"></div>
