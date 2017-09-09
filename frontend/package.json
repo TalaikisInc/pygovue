@@ -26,7 +26,7 @@
     "element-ui": "^1.4.4",
     "lru-cache": "^4.1.1",
     "moment": "^2.18.1",
-    "nuxt": "^1.0.0-rc8",
+    "nuxt": "^1.0.0-rc11",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^13.0.4",
     "vue-ls": "^2.3.0",

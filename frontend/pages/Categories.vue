@@ -1,11 +1,15 @@
 <template>
-  <div class="col-md-12">
+  <div>
     <ad-component></ad-component>
-    <h1>Categories<span v-if="page > 0">, page {{ page }}</span></h1>
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Categories<span v-if="page > 0">, page {{ page }}</span></h1>
+      </div>
+    </div>
     <div class="row" v-for="chunk in chunkCats">
-      <div class="col-md-6 card bg-light mb3" style="max-width: 20rem;" v-for="cat in chunk">
+      <div class="col-sm-3 card bg-light mb3" style="max-width: 20rem;" v-for="cat in chunk">
         <div  class="card-body">
-          <h2 class="card-title"><a :href="baseUrl + 'category/' + cat.slug + '/'">{{ cat.title }}</a></h2>
+          <h2 class="card-title"><a :href="baseUrl + 'category/' + cat.slug + '/'">{{ cat.title }}</a> [{{ cat.post_count }}]</h2>
         </div>
       </div>
     </div>

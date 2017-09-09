@@ -1,23 +1,24 @@
 <template>
-  <div class="col-md-12">
+  <div>
     <ad-component></ad-component>
-    <h1>{{ title }}<span v-if="page > 0">, page {{ page }}</span></h1>
     <div class="row" v-for="chunk in chunkPosts">
-      <div class="col-md-6 card bg-light mb3" style="max-width: 20rem;" v-for="post in chunk">
-        <div class="card-header">
-          <a :href="baseUrl+'/source/'+post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
-            | {{ post.date | formatDate }}
-        </div>
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4 card" v-for="post in chunk">
         <div v-if="post.image" class="card-img-top">
           <a :href="baseUrl + post.slug + '/'">
             <img class="img-responsive" :src="imgBaseUrl + post.image" :alt="post.title">
           </a>
+        </div>
+        <div class="card-block">
+          <a :href="baseUrl+'category/' + post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
+            | {{ post.date | formatDate }}
         </div>
         <div  class="card-body">
           <h2 class="card-title"><a :href="baseUrl + post.slug + '/'">{{ post.title }}</a></h2>
           <p class="card-text" v-if="post.content">{{ post.content }}</p>
         </div>
       </div>
+      <div class="col-sm-2"></div>
     </div>
     <paginator-component v-once :totalPages="calcPages" :paginatorType="paginatorType" value="" :currentPage="page" :itemsPerPage="itemsPerPage" :totalItems="posts[0].total_posts">
     </paginator-component>

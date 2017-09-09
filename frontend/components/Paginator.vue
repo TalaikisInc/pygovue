@@ -1,20 +1,24 @@
 <template>
-<div>
-  <ul class="pagination" v-if="paginatorType === 0">
-    <li v-for="n in paginationRange" :class="activePage(n)">
-      <a :href="baseUrl + 'page/' + n + '/'" @click="pageChanged(n)">{{ n }}</a>
-    </li>
-  </ul>
-  <ul class="pagination" v-if="paginatorType === 1">
-    <li v-for="n in paginationRange" :class="activePage(n)">
-      <a :href="baseUrl + 'category/' + value + '/page/' + n + '/'" @click="pageChanged(n)">{{ n }}</a>
-    </li>
-  </ul>
-  <ul class="pagination" v-if="paginatorType === 2">
-    <li v-for="n in paginationRange" :class="activePage(n)">
-      <a :href="baseUrl + 'categories/' + n + '/'" @click="pageChanged(n)">{{ n }}</a>
-    </li>
-  </ul>
+<div class="row align-items-center">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <ul class="pagination" v-if="paginatorType === 0">
+      <li v-for="n in paginationRange" :class="activePage(n)">
+        <a :href="baseUrl + 'page/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
+      </li>
+    </ul>
+    <ul class="pagination" v-if="paginatorType === 1">
+      <li v-for="n in paginationRange" :class="activePage(n)">
+        <a :href="baseUrl + 'category/' + value + '/page/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
+      </li>
+    </ul>
+    <ul class="pagination" v-if="paginatorType === 2">
+      <li v-for="n in paginationRange" :class="activePage(n)">
+        <a :href="baseUrl + 'categories/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-3"></div>
 </div>
 </template>
 
@@ -30,7 +34,7 @@ export default {
   },
   methods: {
     activePage (pageNum) {
-      return this.currentPage === pageNum ? 'active' : ''
+      return this.currentPage === pageNum ? 'page-item active' : 'page-item'
     },
     pageChanged (pageNum) {
       this.$emit('page-changed', pageNum)
@@ -80,7 +84,7 @@ export default {
     totalItems: Number,
     visiblePages: {
       type: Number,
-      default: 15,
+      default: 20,
       coerce: (val) => parseInt(val)
     }
   }

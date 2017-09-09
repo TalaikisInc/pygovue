@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <adsense
-      :ad-client="adClient"
-      :ad-slot="adSlot"
-      ad-style="display: block"
-      ad-format="auto">
-    </adsense>
+  <div class="row">
+    <div class="col-12">
+      <adsense
+        :ad-client="adClient"
+        :ad-slot="adSlot"
+        ad-style="display: block"
+        ad-format="auto">
+      </adsense>
+    </div>
   </div>
 </template>
 

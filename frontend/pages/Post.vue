@@ -1,37 +1,47 @@
 <template>
 <div>
-  <header-component></header-component>
-    <div class="col-sm-9">
-      <div class="row">
-        <div class="col-sm-8">
-          <ad-component :type="0"></ad-component>
-          <div class="col-md-12">
-            <h1>{{ post.title }}</h1>
-            <div v-if="post.image">
-              <a :href="baseUrl + post.slug+'/'"><img class="img-responsive" :src="imgBaseUrl + post.image" :alt="post.title"></a>
-            </div>
-            <div>
-              >By <a :href="baseUrl+'/source/'+post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
-                | {{ post.date | formatDate }}
-            </div>
-            <h2><a :href="baseUrl + post.slug + '/'">{{ post.title }}</a></h2>
-            <p v-if="post.content">{{ post.content }}</p>
-            <div>
-              <social-sharing :url="baseUrl + post.slug + '/'" :title="post.title"></social-sharing>
-            </div>
-          </div>
-        </div>
+  <ad-component :type="0"></ad-component>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <h1>{{ post.Title }}</h1>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div v-if="post.image">
+        <a :href="baseUrl + post.Slug+'/'">
+          <img class="img-responsive" :src="imgBaseUrl + post.Image" :alt="post.Title">
+        </a>
+      </div>
+      <div>
+        <a :href="baseUrl+'/source/' + post.CategoryID.Slug + '/'">
+          {{ post.CategoryID.Title }}
+        </a>
+         | {{ post.Date | formatDate }}
+      </div>
+      <p v-if="post.Content">
+        {{ post.Content }}
+      </p>
+      <div>
+        <social-sharing :url="baseUrl + post.Slug + '/'" :title="post.Title">
+        </social-sharing>
+      </div>
+      <div class="col">
+        <a :href="post.URL" class="btn btn-danger btn-lg pull-right" role="button" aria-disabled="true">
+          Read more...
+        </a>
       </div>
     </div>
-  <paginator-component v-once :pages="calcPages" :source="type" value="" :active="page"></paginator-component>
-  <footer-component></footer-component>
+    <div class="col-sm-3"></div>
+  </div>
 </div>
 </template>
 
 <script>
 import axios from 'axios'
-import Header from '../components/Header.vue'
-import Footer from '../components/Footer.vue'
 import SocialSharing from '../components/SocialSharing.vue'
 import Ads from '../components/Ads.vue'
 
@@ -48,21 +58,19 @@ export default {
   asyncData ({ req, params, error }) {
     return axios.get('/post/' + params.postSlug + '/')
       .then((response) => {
-        return { post: response.data[0] }
+        return { post: response.data }
       })
       .catch((e) => {
         error({ statusCode: 500, message: e })
       })
   },
   components: {
-    'header-component': Header,
-    'footer-component': Footer,
     'social-sharing': SocialSharing,
     'ad-component': Ads
   },
   head () {
     return {
-      title: this.post.title + ' | ' + this.title
+      title: this.post.Title + ' | ' + this.title
     }
   }
 }
