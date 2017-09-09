@@ -3,11 +3,6 @@
   <div class="row-sm-3"></div>
   <div class="row-sm-6 text-center">
     <div>
-      <a class="navbar-brand" :href="baseUrl">
-        <img class="img-responsive" src="~/assets/logo/logo.png" :alt="logoAlt">
-      </a>
-    </div>
-    <div>
       <h1>404</h1>
       <p>Page not found.</p>
       <a :href="baseUrl">Back to Home</a>

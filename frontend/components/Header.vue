@@ -16,9 +16,9 @@
               Categories
             </a>
             <div class="dropdown-menu" aria-labelledby="navDropdown">
-              <a class="dropdown-item" :href="baseUrl + 'category/' + cat.slug + '/'" v-for="cat in categories">{{ cat.title }} [{{ cat.post_count }}]</a>
+              <a class="dropdown-item" :href="baseUrl + keyword + '/' + cat.slug + '/'" v-for="cat in categories">{{ cat.title }} [{{ cat.post_count }}]</a>
               <hr />
-              <strong><a :href="baseUrl + 'categories/1/'" class="dropdown-item">All categories</a></strong>
+              <strong><a :href="baseUrl + catKey + '/1/'" class="dropdown-item">All categories</a></strong>
             </div>
           </li>
         </ul>
@@ -37,7 +37,9 @@ export default {
       categories: this.categories,
       baseUrl: process.env.BASE_URL,
       logoAlt: process.env.SITE_NAME,
-      title: process.env.SITE_NAME
+      title: process.env.SITE_NAME,
+      keyword: process.env.KEYWORD,
+      catKey: process.env.CATEGORIES_KEY
     }
   },
   methods: {

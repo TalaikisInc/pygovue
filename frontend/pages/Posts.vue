@@ -10,7 +10,7 @@
           </a>
         </div>
         <div class="card-block">
-          <a :href="baseUrl+'category/' + post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
+          <a :href="baseUrl + keyword + '/' + post.category_id.Slug + '/'">{{ post.category_id.Title }}</a>
             | {{ post.date | formatDate }}
         </div>
         <div  class="card-body">
@@ -41,6 +41,7 @@ export default {
       baseUrl: process.env.BASE_URL,
       imgBaseUrl: process.env.IMG_URL,
       title: process.env.SITE_NAME,
+      keyword: process.env.KEYWORD,
       page: null,
       paginatorType: 0,
       itemsPerPage: 20

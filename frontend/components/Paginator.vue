@@ -9,12 +9,12 @@
     </ul>
     <ul class="pagination" v-if="paginatorType === 1">
       <li v-for="n in paginationRange" :class="activePage(n)">
-        <a :href="baseUrl + 'category/' + value + '/page/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
+        <a :href="baseUrl + keyword + '/' + value + '/page/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
       </li>
     </ul>
     <ul class="pagination" v-if="paginatorType === 2">
       <li v-for="n in paginationRange" :class="activePage(n)">
-        <a :href="baseUrl + 'categories/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
+        <a :href="baseUrl + catKey + '/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
       </li>
     </ul>
   </div>
@@ -29,7 +29,9 @@ export default {
   name: 'paginatorComponent',
   data () {
     return {
-      baseUrl: process.env.BASE_URL
+      baseUrl: process.env.BASE_URL,
+      keyword: process.env.KEYWORD,
+      catKey: process.env.CATEGORIES_KEY
     }
   },
   methods: {

@@ -1,5 +1,9 @@
 require('dotenv').config({ path: '../.env' })
 
+const cat = '/' + process.env.KEYWORD + '/:catSlug/'
+const catPaged = '/' + process.env.KEYWORD + '/:catSlug/page/:page/'
+const cats = '/' + process.env.CATEGORIES_KEY + '/:page/'
+
 module.exports = {
   head: {
     title: 'PyGoVue',
@@ -49,7 +53,9 @@ module.exports = {
     ADSENSE_AD_CLIENT: process.env.ADSENSE_AD_CLIENT,
     ADSENSE_AD_SLOT: process.env.ADSENSE_AD_SLOT,
     TWITTER_HANDLE: process.env.TWITTER_HANDLE,
-    FACEBOOK_HANDLE: process.env.FACEBOOK_HANDLE
+    FACEBOOK_HANDLE: process.env.FACEBOOK_HANDLE,
+    KEYWORD: process.env.KEYWORD,
+    CATEGORIES_KEY: process.env.CATEGORIES_KEY
   },
   router: {
     extendRoutes (routes, resolve) {
@@ -57,9 +63,9 @@ module.exports = {
         { path: '', component: resolve(__dirname, 'pages', 'Posts.vue') },
         { path: '/page/:page/', component: resolve(__dirname, 'pages', 'Posts.vue') },
         { path: '/:postSlug/', component: resolve(__dirname, 'pages', 'Post.vue') },
-        { path: '/category/:catSlug/', component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
-        { path: '/category/:catSlug/page/:page/', component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
-        { path: '/categories/:page/', component: resolve(__dirname, 'pages', 'Categories.vue') },
+        { path: cat, component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
+        { path: catPaged, component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
+        { path: cats, component: resolve(__dirname, 'pages', 'Categories.vue') },
         { path: '*', component: resolve(__dirname, 'pages', 'Error404.vue') }
       )
     }

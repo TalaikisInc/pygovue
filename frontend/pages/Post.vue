@@ -17,7 +17,7 @@
         </a>
       </div>
       <div>
-        <a :href="baseUrl+'/source/' + post.CategoryID.Slug + '/'">
+        <a :href="baseUrl + keyword + '/' + post.CategoryID.Slug + '/'">
           {{ post.CategoryID.Title }}
         </a>
          | {{ post.Date | formatDate }}
@@ -26,6 +26,7 @@
         {{ post.Content }}
       </p>
       <div>
+        <ad-component :type="0"></ad-component>
         <social-sharing :url="baseUrl + post.Slug + '/'" :title="post.Title">
         </social-sharing>
       </div>
@@ -52,7 +53,8 @@ export default {
       post: null,
       baseUrl: process.env.BASE_URL,
       imgBaseUrl: process.env.IMG_URL,
-      title: process.env.SITE_NAME
+      title: process.env.SITE_NAME,
+      keyword: process.env.KEYWORD
     }
   },
   asyncData ({ req, params, error }) {

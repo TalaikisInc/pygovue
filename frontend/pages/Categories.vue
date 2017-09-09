@@ -9,7 +9,7 @@
     <div class="row" v-for="(chunk, index) in chunkCats">
       <div class="col-sm-3 card bg-light mb3" style="max-width: 20rem;" v-for="cat in chunk">
         <div  class="card-body">
-          <h2 class="card-title"><a :href="baseUrl + 'category/' + cat.slug + '/'">{{ cat.title }}</a> [{{ cat.post_count }}]</h2>
+          <h2 class="card-title"><a :href="baseUrl + keyword + '/' + cat.slug + '/'">{{ cat.title }}</a> [{{ cat.post_count }}]</h2>
         </div>
       </div>
       <div v-if="index === (3 || 7)" class="col-12">
@@ -33,6 +33,7 @@ export default {
       categories: [],
       baseUrl: process.env.BASE_URL,
       title: process.env.SITE_NAME,
+      keyword: process.env.KEYWORD,
       page: null,
       paginatorType: 2,
       itemsPerPage: 40
