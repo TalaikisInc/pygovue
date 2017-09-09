@@ -1,7 +1,7 @@
 <template>
   <div>
     <ad-component></ad-component>
-    <div class="row" v-for="chunk in chunkPosts">
+    <div class="row" v-for="(chunk, index) in chunkPosts">
       <div class="col-sm-2"></div>
       <div class="col-sm-4 card" v-for="post in chunk">
         <div v-if="post.image" class="card-img-top">
@@ -19,6 +19,9 @@
         </div>
       </div>
       <div class="col-sm-2"></div>
+    <div v-if="index === (3 || 7)" class="col-12">
+      <ad-component></ad-component>
+    </div>
     </div>
     <paginator-component v-once :totalPages="calcPages" :paginatorType="paginatorType" value="" :currentPage="page" :itemsPerPage="itemsPerPage" :totalItems="posts[0].total_posts">
     </paginator-component>
