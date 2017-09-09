@@ -28,6 +28,7 @@ func main() {
 	app.HandleFunc("/cat/{catSlug}/{page}/", v2handlers.PostsByCatHandler).Methods("GET")
 	app.HandleFunc("/cats/{page}/", v2handlers.CategoriesHandler).Methods("GET")
 	app.HandleFunc("/post/{postSllug}/", v2handlers.PostHandler).Methods("GET")
+	app.HandleFunc("/search/{page}/{keyword}/", v2handlers.SearchHandler).Methods("GET")
 
 	server := &http.Server{
 		Handler:      app,
