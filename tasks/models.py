@@ -67,6 +67,7 @@ class Category(AutoSlugifyOnSaveModel):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=120, verbose_name=T("Categoery"), db_index=True, unique=True)
     slug = models.CharField(max_length=120, blank=True, null=True)
+    parsed = models.BooleanField(default=0, verbose_name=T("Parsed status"))
 
     class Meta:
         ordering = ('title',)
