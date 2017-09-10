@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
-      <div v-if="post.image">
+      <div v-if="post.Image">
         <a :href="baseUrl + post.Slug+'/'">
           <img class="img-fluid" :src="imgBaseUrl + post.Image" :alt="post.Title">
         </a>
