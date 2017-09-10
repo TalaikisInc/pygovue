@@ -22,8 +22,6 @@
     "@nuxtjs/workbox": "^1.2.0",
     "axios": "^0.16.2",
     "dotenv": "^4.0.0",
-    "element-theme": "^0.7.2",
-    "element-ui": "^1.4.4",
     "lru-cache": "^4.1.1",
     "moment": "^2.18.1",
     "nuxt": "^1.0.0-rc11",
