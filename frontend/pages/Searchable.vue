@@ -11,7 +11,7 @@
       <div class="col-sm-4 card" v-for="post in chunk">
         <div v-if="post.image" class="card-img-top">
           <a :href="baseUrl + post.slug + '/'">
-            <img class="img-responsive" :src="imgBaseUrl + post.image" :alt="post.title">
+            <img class="img-fluid" :src="imgBaseUrl + post.image" :alt="post.title">
           </a>
         </div>
         <div class="card-block">

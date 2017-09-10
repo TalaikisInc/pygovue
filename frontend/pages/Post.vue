@@ -13,7 +13,7 @@
     <div class="col-sm-6">
       <div v-if="post.image">
         <a :href="baseUrl + post.Slug+'/'">
-          <img class="img-responsive" :src="imgBaseUrl + post.Image" :alt="post.Title">
+          <img class="img-fluid" :src="imgBaseUrl + post.Image" :alt="post.Title">
         </a>
       </div>
       <div>
