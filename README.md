@@ -8,7 +8,7 @@ Pygovue is a 3-part website boilerplate:
 
 ## Demo(s) in play
 
-* ...
+* [Celebrities today news](https://celebritytodaynews.com/)
 
 ## UI
 
