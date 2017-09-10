@@ -2,7 +2,7 @@
   <div>
     <ad-component></ad-component>
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12 text-center">
         <h1>{{ catSlug | capFirst }}<span v-if="page > 0">, page {{ page }}</span></h1>
       </div>
     </div>
