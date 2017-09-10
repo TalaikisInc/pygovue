@@ -17,6 +17,11 @@
         <a :href="baseUrl + catKey + '/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
       </li>
     </ul>
+    <ul class="pagination" v-if="paginatorType === 3">
+      <li v-for="n in paginationRange" :class="activePage(n)">
+        <a :href="baseUrl + searchKey + '/' + value + '/page/' + n + '/'" @click="pageChanged(n)" class="page-link">{{ n }}</a>
+      </li>
+    </ul>
   </div>
   <div class="col-sm-3"></div>
 </div>
@@ -31,7 +36,8 @@ export default {
     return {
       baseUrl: process.env.BASE_URL,
       keyword: process.env.KEYWORD,
-      catKey: process.env.CATEGORIES_KEY
+      catKey: process.env.CATEGORIES_KEY,
+      searchKey: process.env.SEARCH_KEYWORD
     }
   },
   methods: {

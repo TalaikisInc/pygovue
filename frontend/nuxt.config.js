@@ -3,6 +3,8 @@ require('dotenv').config({ path: '../.env' })
 const cat = '/' + process.env.KEYWORD + '/:catSlug/'
 const catPaged = '/' + process.env.KEYWORD + '/:catSlug/page/:page/'
 const cats = '/' + process.env.CATEGORIES_KEY + '/:page/'
+const search = '/' + process.env.SEARCH_KEYWORD + '/:catSlug/'
+const searchPaged = '/' + process.env.SEARCH_KEYWORD + '/:catSlug/page/:page/'
 
 module.exports = {
   head: {
@@ -66,6 +68,8 @@ module.exports = {
         { path: cat, component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
         { path: catPaged, component: resolve(__dirname, 'pages', 'PostsByCat.vue') },
         { path: cats, component: resolve(__dirname, 'pages', 'Categories.vue') },
+        { path: search, component: resolve(__dirname, 'pages', 'Searchable.vue') },
+        { path: searchPaged, component: resolve(__dirname, 'pages', 'Searchable.vue') },
         { path: '*', component: resolve(__dirname, 'pages', 'Error404.vue') }
       )
     }

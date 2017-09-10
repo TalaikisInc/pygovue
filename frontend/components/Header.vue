@@ -21,6 +21,14 @@
               <strong><a :href="baseUrl + catKey + '/1/'" class="dropdown-item">All categories</a></strong>
             </div>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" :href="baseUrl" id="navDropdownB" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Trending
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navDropdown">
+              <a class="dropdown-item" :href="baseUrl + searchKey + '/keyword/'">Keyword</a>
+            </div>
+          </li>
         </ul>
       </div>
     </nav>
@@ -39,7 +47,8 @@ export default {
       logoAlt: process.env.SITE_NAME,
       title: process.env.SITE_NAME,
       keyword: process.env.KEYWORD,
-      catKey: process.env.CATEGORIES_KEY
+      catKey: process.env.CATEGORIES_KEY,
+      searchKey: process.env.SEARCH_KEYWORD
     }
   },
   methods: {
