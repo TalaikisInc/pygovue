@@ -12,7 +12,7 @@ Pygovue is a 3-part website boilerplate:
 
 ## UI
 
-This version uses Bootsrap 4.
+This version uses Bootsrap 4. For Element UI, see [elpgv](https://github.com/xenu256/elpgv).
 
 ## Requirements
 
