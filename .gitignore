@@ -13,7 +13,6 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
-static/
-src/assets/
 *.pyc
 migrations/
+.nuxt/
