@@ -12,7 +12,8 @@ Pygovue is a 3-part website boilerplate:
 
 ## UI
 
-This version uses Bootsrap 4. For Element UI, see [elpgv](https://github.com/xenu256/elpgv).
+This version uses Bootsrap 4. For iView UI, see [elpgv](https://github.com/xenu256/elpgv), 
+for Vuetify [tipgv](https://github.com/xenu256/tipgv).
 
 ## Requirements
 
