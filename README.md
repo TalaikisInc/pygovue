@@ -13,7 +13,7 @@ Pygovue is a 3-part website boilerplate:
 ## UI
 
 This version uses Bootsrap 4. For iView UI, see [elpgv](https://github.com/xenu256/elpgv), 
-for Vuetify [tipgv](https://github.com/xenu256/tipgv).
+for Vuetify [tipgv](https://github.com/xenu256/tipgv), for Bulma [bulma_pgv](https://github.com/xenu256/bulma_pgv).
 
 ## Requirements
 
